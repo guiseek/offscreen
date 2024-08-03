@@ -1,3 +1,6 @@
 import { TextOffscreenCanvas } from "./base";
 
-export class GroupTextOffscreenCanvas extends TextOffscreenCanvas {}
+export class GroupTextOffscreenCanvas extends TextOffscreenCanvas {
+  weight = 'bold';
+  size = '48px'
+}

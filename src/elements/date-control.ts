@@ -1,13 +1,16 @@
-import { builtIn } from "../utils";
+import { builtIn, formatDate } from "../utils";
 
 @builtIn("input", "date-control")
 export class DateControl extends HTMLInputElement {
   connectedCallback() {
+    this.setAttribute("name", "date");
     this.setAttribute("type", "date");
-    this.setAttribute("step", "3600");
+
+    const value = formatDate(new Date());
+    this.setAttribute("value", value);
   }
 
-  getValue() {
-    return this.valueAsDate;
+  get value() {
+    return super.valueAsDate!.toISOString();
   }
 }

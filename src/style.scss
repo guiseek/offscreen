@@ -113,34 +113,27 @@ body {
   font-family: sans-serif;
 }
 
+form {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 24px;
+
+  input {
+    flex: 2;
+    min-width: 100px;
+
+    &:last-of-type {
+      min-width: 100%;
+    }
+  }
+  
+  select {
+    flex: 3;
+    min-width: 200px;
+  }
+}
+
 /* Use [[webfont]] when [[webfont]] gets loaded*/
 .fonts-loaded body {
   font-family: Lato, sans-serif;
-}
-
-.wobble {
-  animation: wobble 0.4s 0.1s both;
-}
-
-@keyframes wobble {
-  0%,
-  100% {
-    transform: translateX(0%);
-    transform-origin: 50% 50%;
-  }
-  15% {
-    transform: translateX(-30px) rotate(-6deg);
-  }
-  30% {
-    transform: translateX(15px) rotate(6deg);
-  }
-  45% {
-    transform: translateX(-15px) rotate(-3.6deg);
-  }
-  60% {
-    transform: translateX(9px) rotate(2.4deg);
-  }
-  75% {
-    transform: translateX(-6px) rotate(-1.2deg);
-  }
 }

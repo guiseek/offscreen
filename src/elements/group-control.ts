@@ -4,7 +4,7 @@ import { builtIn } from "../utils/built-in";
 export class GroupControl extends HTMLSelectElement {
   connectedCallback() {
     this.setAttribute("name", "group");
-    
+
     if (this.firstElementChild instanceof HTMLOptionElement) {
       this.firstElementChild.selected = true;
     }
@@ -14,6 +14,10 @@ export class GroupControl extends HTMLSelectElement {
     for (const [text, value] of items) {
       this.add(new Option(text.replace(/.svg/, ""), value));
     }
+  }
+
+  get value() {
+    return this.normalizeName(super.value);
   }
 
   normalizeName(value: string) {

@@ -4,4 +4,8 @@ export * from './create-async';
 export * from './create-state';
 export * from './create';
 export * from './entries';
+export * from './form-value';
+export * from './format-date';
+export * from './merge';
+export * from './throttle';
 export * from './values';
