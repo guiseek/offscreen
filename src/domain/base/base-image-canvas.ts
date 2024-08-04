@@ -1,11 +1,11 @@
-import { BaseOffscreenCanvas } from "./base-offscreen-canvas";
 import { createAsync } from "../../utils";
+import { BaseOffscreenCanvas } from "./base-offscreen-canvas";
 
-export abstract class ImageOffscreenCanvas extends BaseOffscreenCanvas {
+export abstract class BaseImageCanvas extends BaseOffscreenCanvas {
   image = new Image(this.width, this.width);
 
   async draw() {
-    return createAsync<ImageOffscreenCanvas>((resolve) => {
+    return createAsync<BaseImageCanvas>((resolve) => {
       const ctx = this.context;
 
       if (ctx) {
@@ -20,4 +20,3 @@ export abstract class ImageOffscreenCanvas extends BaseOffscreenCanvas {
     });
   }
 }
- 

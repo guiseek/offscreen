@@ -1,26 +1,26 @@
 import {
-  GroupLogoOffscreenCanvas,
-  GroupTextOffscreenCanvas,
-  BackgroundOffscreenCanvas,
-  IconOffscreenCanvas,
   RowOffscreenCanvas,
-  DateTextOffscreenCanvas,
-  TimeTextOffscreenCanvas,
+  IconOffscreenCanvas,
   GridOffscreenCanvas,
+  TimeTextOffscreenCanvas,
+  GroupTextOffscreenCanvas,
+  DateTextOffscreenCanvas,
+  GroupLogoOffscreenCanvas,
+  BackgroundOffscreenCanvas,
 } from "./core";
 import {
   FormGroup,
-  GroupControl,
-  PosterCanvas,
-  BackgroundControl,
   DateControl,
   TimeControl,
+  PosterCanvas,
+  GroupControl,
   PlaceControl,
+  BackgroundControl,
+  DownloadButton,
 } from "./elements";
 import "./style.scss";
-import { Data } from "./interfaces";
-import { formValue } from "./utils";
 import { wooble } from "./animations";
+import { Data } from "./interfaces";
 
 const config = {
   width: 540,
@@ -33,20 +33,6 @@ const config = {
   get col() {
     return this.height / this.cols;
   },
-  backgrounds: [
-    ["Github timeline", "background/github-timeline-shadow.svg"],
-    ["Bermuda circle", "background/bermuda-circle-shadow.svg"],
-    ["Dragon scales", "background/dragon-scales.svg"],
-    ["Endless constellation", "background/endless-constellation.svg"],
-    ["Liquid cheese", "background/liquid-cheese.svg"],
-    ["Wintery sunburst", "background/wintery-sunburst-shadow.svg"],
-  ],
-  groups: [
-    ["NodeJS", "NodeJS"],
-    ["php", "php"],
-    ["Rust", "Rust"],
-    ["TypeScript", "TypeScript"],
-  ],
 };
 
 /**
@@ -66,9 +52,6 @@ const control = {
   place: new PlaceControl(),
 };
 
-control.background.setOptions(...config.backgrounds);
-control.group.setOptions(...config.groups);
-
 const form = new FormGroup<Data>();
 
 form.addControl(
@@ -78,6 +61,14 @@ form.addControl(
   control.time,
   control.place
 );
+
+const button = {
+  download: new DownloadButton(),
+};
+
+form.append(button.download);
+
+button.download.canvasId = 'poster'
 
 /**
  *   ___   __  __                               ____
@@ -153,17 +144,15 @@ row5.position.y = config.row * 4;
 
 row5.addOffscreen(dateIcon, dateText, timeIcon, timeText, placeIcon, placeText);
 
-const grid = new GridOffscreenCanvas(config.width, config.height)
+const grid = new GridOffscreenCanvas(config.width, config.height);
 
 poster.addOffscreen(background, groupLogo, groupText, row5, grid);
 
 const updateOffscreens = (data: Data) => {
-  console.table(data)
+  background.image.src = `backgrounds/${data.background}.svg`;
 
-  background.image.src = data.background;
-
-  groupLogo.image.src = `group/${data.group}.svg`;
-  groupText.text = data.group
+  groupLogo.image.src = `logos/${data.group}.svg`;
+  groupText.text = control.group.getSelectedOption().text;
 
   dateIcon.image.src = "icons/calendar.svg";
   timeIcon.image.src = "icons/clock.svg";
@@ -175,10 +164,10 @@ const updateOffscreens = (data: Data) => {
 };
 
 form.onchange = () => {
-  updateOffscreens(formValue(form));
+  updateOffscreens(form.value);
 
-  const { keyFrames, options } = wooble;
-  poster.animate(keyFrames, options);
+  const { keyframes, options } = wooble;
+  poster.animate(keyframes, options);
 
   poster.execute();
 };
@@ -203,11 +192,11 @@ if ("fonts" in document) {
   ]).then((_) => {
     document.documentElement.classList.add("fonts-loaded");
 
-    updateOffscreens(formValue(form));
+    updateOffscreens(form.value);
 
-    const { keyFrames, options } = wooble;
-    poster.animate(keyFrames, options);
-  
+    const { keyframes, options } = wooble;
+    poster.animate(keyframes, options);
+
     poster.execute();
   });
 }

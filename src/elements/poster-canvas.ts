@@ -10,6 +10,7 @@ export class PosterCanvas extends HTMLCanvasElement {
 
   connectedCallback() {
     this.#context = this.getContext("2d")!;
+    this.setAttribute("id", "poster");
   }
 
   addOffscreen(...offscreens: BaseOffscreenCanvas[]) {
@@ -21,7 +22,7 @@ export class PosterCanvas extends HTMLCanvasElement {
 
     return createAsync<void>((resolve) => {
       const draws$ = Promise.all(this.#offscreens.map((o) => o.draw()));
-      
+
       draws$.then((offs) => {
         console.log(offs);
         offs.map((o) => this.#context.drawImage(o, o.position.x, o.position.y));

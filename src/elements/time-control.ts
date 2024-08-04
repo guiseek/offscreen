@@ -1,11 +1,10 @@
 import { builtIn } from "../utils";
+import { BaseInputControl } from "./base";
 
 @builtIn("input", "time-control")
-export class TimeControl extends HTMLInputElement {
+export class TimeControl extends BaseInputControl {
   connectedCallback() {
-    this.setAttribute("name", "time");
-    this.setAttribute("type", "time");
-    this.setAttribute("value", '19:00');
+    this.config("time", "time", "19:00");
   }
 
   get value() {

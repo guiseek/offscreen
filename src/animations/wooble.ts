@@ -1,4 +1,4 @@
-const keyFrames: Keyframe[] = [
+const keyframes: Keyframe[] = [
   { transform: "translateX(0%) rotate(0deg)", transformOrigin: "50% 50%" }, // 0%
   { transform: "translateX(-30px) rotate(-6deg)" }, // 15%
   { transform: "translateX(15px) rotate(6deg)" }, // 30%
@@ -13,4 +13,4 @@ const options = {
   iterations: 1,
 };
 
-export const wooble = { keyFrames, options };
+export const wooble = { keyframes, options };

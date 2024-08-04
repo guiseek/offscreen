@@ -1,13 +1,10 @@
 import { builtIn } from "../utils";
+import { BaseInputControl } from "./base";
 
 @builtIn("input", "place-control")
-export class PlaceControl extends HTMLInputElement {
+export class PlaceControl extends BaseInputControl {
   connectedCallback() {
-    this.setAttribute("name", "place");
-    this.setAttribute("type", "text");
-
-    this.setAttribute("value", "");
-
+    this.config("text", "place");
     this.setAttribute("placeholder", "Location");
   }
 }

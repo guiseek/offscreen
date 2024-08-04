@@ -1,4 +1,4 @@
-import { builtIn } from "../utils/built-in";
+import { builtIn, formValue } from "../utils";
 
 type FormControl = HTMLInputElement | HTMLSelectElement;
 
@@ -8,11 +8,7 @@ export class FormGroup<T = object> extends HTMLFormElement {
     this.append(...controls);
   }
 
-  getValue() {
-    return this.#fromData(new FormData(this)) as T;
-  }
-
-  #fromData(data: FormData) {
-    return Object.fromEntries(data.entries());
+  get value() {
+    return formValue<T>(this);
   }
 }
